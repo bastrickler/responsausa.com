@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsa — Submit a Requirement</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #1B2A4A;
+      --navy-deep:  #111e35;
+      --gold:       #C8952A;
+      --gold-light: #e8b84b;
+      --cream:      #F7F4EE;
+      --cream-dark: #ede9e0;
+      --ink:        #1a1a1a;
+      --muted:      #5a6070;
+      --border:     #d0ccc2;
+      --error:      #b03a2e;
+      --success:    #1e6b45;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--navy-deep);
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 3px solid var(--gold);
+    }
+
+    .logo {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.04em;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    .tagline {
+      font-size: 0.75rem;
+      color: #8fa0bb;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    /* ── Hero band ── */
+    .hero {
+      background: var(--navy);
+      padding: 48px 48px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      border: 40px solid rgba(200,149,42,0.08);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 30%;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      border: 24px solid rgba(200,149,42,0.05);
+    }
+
+    .hero-inner {
+      max-width: 760px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.9rem;
+      color: #fff;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 em {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .hero p {
+      color: #99afc8;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      max-width: 620px;
+    }
+
+    /* ── Steps bar ── */
+    .steps-bar {
+      background: var(--navy-deep);
+      padding: 0 48px;
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .step-tab {
+      padding: 14px 24px 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #4a5d75;
+      border-bottom: 3px solid transparent;
+      cursor: default;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .step-tab.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    .step-tab.done {
+      color: #5a8a6a;
+    }
+
+    /* ── Layout ── */
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 48px 80px;
+      align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .layout { grid-template-columns: 1fr; padding: 32px 24px 60px; }
+      header { padding: 20px 24px; }
+      .hero { padding: 36px 24px 32px; }
+      .steps-bar { padding: 0 24px; overflow-x: auto; }
+    }
+
+    /* ── Form ── */
+    form { display: flex; flex-direction: column; gap: 0; }
+
+    .form-section {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+
+    .form-section:focus-within {
+      box-shadow: 0 4px 20px rgba(27,42,74,0.10);
+    }
+
+    .section-header {
+      background: var(--navy);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-number {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--navy-deep);
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+
+    .section-subtitle {
+      font-size: 0.72rem;
+      color: #7a93b0;
+      margin-left: auto;
+      font-style: italic;
+    }
+
+    .section-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .field-row { grid-template-columns: 1fr; }
+    }
+
+    .field { display: flex; flex-direction: column; gap: 6px; }
+
+    label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    label .req { color: var(--gold); margin-left: 2px; }
+
+    .hint {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+      font-style: italic;
+      margin-top: -2px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      background: var(--cream);
+      color: var(--ink);
+      transition: border-color 0.15s, background 0.15s;
+      outline: none;
+      width: 100%;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--navy);
+      background: #fff;
+    }
+
+    select { cursor: pointer; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231B2A4A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+
+    .char-count {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-align: right;
+      margin-top: -4px;
+    }
+
+    /* Checkbox group */
+    .check-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    @media (max-width: 500px) { .check-group { grid-template-columns: 1fr; } }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      font-size: 0.85rem;
+      color: var(--ink);
+      background: var(--cream);
+      user-select: none;
+    }
+
+    .check-item:hover { border-color: var(--navy); background: #fff; }
+    .check-item input[type="checkbox"] { accent-color: var(--navy); width: 15px; height: 15px; flex-shrink: 0; }
+    .check-item.selected { border-color: var(--navy); background: #edf1f7; }
+
+    /* Radio group */
+    .radio-group { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .radio-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.15s;
+      background: var(--cream);
+      user-select: none;
+    }
+
+    .radio-item:hover { border-color: var(--navy); background: #fff; }
+    .radio-item input[type="radio"] { accent-color: var(--navy); }
+    .radio-item.selected { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .radio-item.selected input { accent-color: var(--gold); }
+
+    /* Urgency slider */
+    .urgency-track {
+      display: flex;
+      gap: 6px;
+      align-items: stretch;
+    }
+
+    .urgency-opt {
+      flex: 1;
+      padding: 10px 6px;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 500;
+      transition: all 0.15s;
+      background: var(--cream);
+      color: var(--muted);
+      line-height: 1.3;
+    }
+
+    .urgency-opt:hover { border-color: var(--navy); color: var(--navy); }
+    .urgency-opt.selected { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .urgency-opt.selected.hot { background: #8b2020; border-color: #8b2020; }
+
+    /* Submit */
+    .submit-area {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .btn-submit {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 15px 40px;
+      background: var(--gold);
+      color: var(--navy-deep);
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .btn-submit:hover { background: var(--gold-light); }
+    .btn-submit:active { transform: translateY(1px); }
+
+    .privacy-note {
+      font-size: 0.73rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Sidebar */
+    .sidebar { padding-left: 32px; }
+
+    @media (max-width: 860px) { .sidebar { padding-left: 0; margin-top: 0; } }
+
+    .sidebar-card {
+      background: var(--navy);
+      border-radius: 4px;
+      padding: 24px;
+      margin-bottom: 20px;
+      position: sticky;
+      top: 24px;
+    }
+
+    .sidebar-card h3 {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.9rem;
+      color: var(--gold);
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    .sidebar-card p {
+      font-size: 0.8rem;
+      color: #8fa0bb;
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+
+    .process-step {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 14px;
+      align-items: flex-start;
+    }
+
+    .ps-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.68rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .ps-text {
+      font-size: 0.78rem;
+      color: #8fa0bb;
+      line-height: 1.5;
+    }
+
+    .ps-text strong { color: #c8d8e8; font-weight: 600; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin: 16px 0;
+    }
+
+    /* Confirmation overlay */
+    #confirmation {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 30, 53, 0.92);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    #confirmation.show { display: flex; }
+
+    .confirm-box {
+      background: #fff;
+      border-radius: 6px;
+      max-width: 500px;
+      width: 100%;
+      padding: 48px 40px;
+      text-align: center;
+      animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    .confirm-icon {
+      width: 56px; height: 56px;
+      background: var(--navy);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .confirm-icon svg { width: 28px; height: 28px; stroke: var(--gold); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    .confirm-box h2 {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .confirm-box p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .confirm-box p strong { color: var(--navy); }
+
+    .confirm-ref {
+      display: inline-block;
+      margin: 16px 0 24px;
+      padding: 8px 20px;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: var(--navy);
+      letter-spacing: 0.05em;
+    }
+
+    .btn-close {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 12px 32px;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .btn-close:hover { background: var(--navy-deep); }
+
+    /* Validation */
+    .field-error {
+      font-size: 0.73rem;
+      color: var(--error);
+      margin-top: -2px;
+    }
+
+    input.invalid, select.invalid, textarea.invalid {
+      border-color: var(--error);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">RESPON<span>SA</span></div>
+  <div class="tagline">responsausa.com &nbsp;·&nbsp; SDVOSB Certified</div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <h1>Submit a <em>Requirement</em></h1>
+    <p>Tell us what you need. We'll clarify the requirement, match it to vetted cleared talent, and return a shortlist — so you can move fast without sacrificing quality.</p>
+  </div>
+</div>
+
+<div class="steps-bar">
+  <div class="step-tab active" id="tab-1">① Contract Info</div>
+  <div class="step-tab" id="tab-2">② The Requirement</div>
+  <div class="step-tab" id="tab-3">③ Talent Profile</div>
+  <div class="step-tab" id="tab-4">④ Constraints</div>
+  <div class="step-tab" id="tab-5">⑤ Contact</div>
+</div>
+
+<div class="layout">
+  <form id="intake-form" novalidate>
+
+    <!-- SECTION 1: Contract Info -->
+    <div class="form-section" data-section="1">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <div class="section-title">Contract Information</div>
+        <div class="section-subtitle">Basic vehicle details</div>
+      </div>
+      <div class="section-body">
+        <div class="field-row">
+          <div class="field">
+            <label>Contract Vehicle Type <span class="req">*</span></label>
+            <select id="contract-type" required>
+              <option value="">— Select —</option>
+              <option>IDIQ</option>
+              <option>BAA</option>
+              <option>BPA</option>
+              <option>GWAC</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Contract / Task Order Number</label>
+            <input type="text" id="contract-number" placeholder="e.g. W911NF-23-D-0042" />
+            <span class="hint">If available — helps us verify vehicle scope</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Awarding Agency / Command <span class="req">*</span></label>
+            <input type="text" id="agency" placeholder="e.g. DARPA, SOCOM, PEO IEW&S" required />
+          </div>
+          <div class="field">
+            <label>Is this a new need or continuation?</label>
+            <div class="radio-group" id="need-type">
+              <label class="radio-item"><input type="radio" name="need-type" value="New need" /> New need</label>
+              <label class="radio-item"><input type="radio" name="need-type" value="Continuation" /> Continuation</label>
+              <label class="radio-item"><input type="radio" name="need-type" value="Surge / backfill" /> Surge / backfill</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: The Requirement -->
+    <div class="form-section" data-section="2">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <div class="section-title">The Requirement</div>
+        <div class="section-subtitle">What you actually need done</div>
+      </div>
+      <div class="section-body">
+        <div class="field">
+          <label>Paste or describe the requirement <span class="req">*</span></label>
+          <span class="hint">Copy directly from the task order, SOW, or performance work statement — or describe in plain language. Don't worry about polish; we'll help clarify.</span>
+          <textarea id="requirement-text" rows="6" placeholder="e.g. 'The contractor shall provide subject matter expertise in support of... ' or 'We need someone who can help us with our JADC2 integration roadmap for the next 60 days.'" required></textarea>
+          <div class="char-count"><span id="req-count">0</span> characters</div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>What does "done" look like? <span class="req">*</span></label>
+            <textarea id="done-look" rows="3" placeholder="e.g. A delivered assessment report, a working prototype, a trained team, ongoing advisory support..." required></textarea>
+          </div>
+          <div class="field">
+            <label>Biggest risk if this is staffed poorly?</label>
+            <textarea id="risk" rows="3" placeholder="e.g. Schedule slip on a milestone review, loss of institutional knowledge, contract compliance gap..."></textarea>
+          </div>
+        </div>
+        <div class="field">
+          <label>Nature of the work</label>
+          <div class="radio-group" id="work-nature">
+            <label class="radio-item"><input type="radio" name="work-nature" value="Defined deliverable" /> Defined deliverable</label>
+            <label class="radio-item"><input type="radio" name="work-nature" value="Ongoing advisory" /> Ongoing advisory</label>
+            <label class="radio-item"><input type="radio" name="work-nature" value="Surge / bridge" /> Surge / bridge</label>
+            <label class="radio-item"><input type="radio" name="work-nature" value="Assessment / analysis" /> Assessment / analysis</label>
+            <label class="radio-item"><input type="radio" name="work-nature" value="Not sure yet" /> Not sure yet</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: Talent Profile -->
+    <div class="form-section" data-section="3">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <div class="section-title">Talent Profile</div>
+        <div class="section-subtitle">Who you need</div>
+      </div>
+      <div class="section-body">
+        <div class="field-row">
+          <div class="field">
+            <label>Functional Area <span class="req">*</span></label>
+            <select id="functional-area" required>
+              <option value="">— Select primary —</option>
+              <option>Program / Project Management</option>
+              <option>Systems Engineering</option>
+              <option>Cybersecurity / IA</option>
+              <option>Intelligence Analysis</option>
+              <option>Acquisitions / Contracting</option>
+              <option>Logistics / Supply Chain</option>
+              <option>Data / Analytics</option>
+              <option>Software Development</option>
+              <option>Science & Technology</option>
+              <option>Policy / Strategy</option>
+              <option>Training & Education</option>
+              <option>Other / Hybrid</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Clearance Required <span class="req">*</span></label>
+            <select id="clearance" required>
+              <option value="">— Select —</option>
+              <option>Unclassified</option>
+              <option>Public Trust</option>
+              <option>Secret</option>
+              <option>Top Secret</option>
+              <option>TS/SCI</option>
+              <option>TS/SCI + Poly</option>
+              <option>Not yet determined</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Experience Level <span class="req">*</span></label>
+            <div class="radio-group" id="exp-level">
+              <label class="radio-item"><input type="radio" name="exp-level" value="Mid (5–10 yrs)" /> Mid (5–10 yrs)</label>
+              <label class="radio-item"><input type="radio" name="exp-level" value="Senior (10–20 yrs)" /> Senior (10–20 yrs)</label>
+              <label class="radio-item"><input type="radio" name="exp-level" value="Expert (20+ yrs)" /> Expert (20+ yrs)</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Number of Individuals Needed</label>
+            <div class="radio-group" id="headcount">
+              <label class="radio-item"><input type="radio" name="headcount" value="1" /> 1</label>
+              <label class="radio-item"><input type="radio" name="headcount" value="2–3" /> 2–3</label>
+              <label class="radio-item"><input type="radio" name="headcount" value="4–5" /> 4–5</label>
+              <label class="radio-item"><input type="radio" name="headcount" value="Unsure" /> Unsure</label>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Any additional skill requirements or preferences?</label>
+          <textarea id="skill-notes" rows="2" placeholder="e.g. Prior SOCOM experience, DAWIA certified, specific system familiarity (GCSS-Army, AHLTA, etc.)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: Constraints -->
+    <div class="form-section" data-section="4">
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <div class="section-title">Practical Constraints</div>
+        <div class="section-subtitle">Timeline, location, budget</div>
+      </div>
+      <div class="section-body">
+        <div class="field-row">
+          <div class="field">
+            <label>Estimated Period of Performance</label>
+            <div class="radio-group" id="pop">
+              <label class="radio-item"><input type="radio" name="pop" value="< 30 days" /> &lt; 30 days</label>
+              <label class="radio-item"><input type="radio" name="pop" value="30–90 days" /> 30–90 days</label>
+              <label class="radio-item"><input type="radio" name="pop" value="3–6 months" /> 3–6 months</label>
+              <label class="radio-item"><input type="radio" name="pop" value="6–12 months" /> 6–12 months</label>
+              <label class="radio-item"><input type="radio" name="pop" value="12+ months" /> 12+ months</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Work Location</label>
+            <div class="radio-group" id="work-location">
+              <label class="radio-item"><input type="radio" name="work-location" value="Remote" /> Remote</label>
+              <label class="radio-item"><input type="radio" name="work-location" value="On-site" /> On-site</label>
+              <label class="radio-item"><input type="radio" name="work-location" value="Hybrid" /> Hybrid</label>
+            </div>
+          </div>
+        </div>
+        <div class="field" id="location-field" style="display:none">
+          <label>On-site Location</label>
+          <input type="text" id="onsite-location" placeholder="e.g. Fort Belvoir, VA / Pentagon / CONUS only" />
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Daily Rate Range (per person)</label>
+            <select id="daily-rate">
+              <option value="">— Select if known —</option>
+              <option>Under $800/day</option>
+              <option>$800–$1,200/day</option>
+              <option>$1,200–$1,600/day</option>
+              <option>$1,600–$2,000/day</option>
+              <option>Over $2,000/day</option>
+              <option>To be determined</option>
+            </select>
+            <span class="hint">Optional — helps us filter for realistic matches. Rates are all-inclusive.</span>
+          </div>
+          <div class="field">
+            <label>Start Date Urgency <span class="req">*</span></label>
+            <div class="urgency-track" id="urgency-track">
+              <div class="urgency-opt" data-value="Flexible (30+ days)">Flexible<br/><small>30+ days</small></div>
+              <div class="urgency-opt" data-value="Soon (2–4 weeks)">Soon<br/><small>2–4 weeks</small></div>
+              <div class="urgency-opt" data-value="Urgent (< 2 weeks)">Urgent<br/><small>&lt; 2 weeks</small></div>
+              <div class="urgency-opt hot" data-value="Immediate (ASAP)">Immediate<br/><small>ASAP</small></div>
+            </div>
+            <input type="hidden" id="urgency-value" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: Contact -->
+    <div class="form-section" data-section="5">
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <div class="section-title">Contact Information</div>
+        <div class="section-subtitle">Who we're working with</div>
+      </div>
+      <div class="section-body">
+        <div class="field-row">
+          <div class="field">
+            <label>Your Name <span class="req">*</span></label>
+            <input type="text" id="contact-name" placeholder="First and last name" required />
+          </div>
+          <div class="field">
+            <label>Your Title / Role</label>
+            <input type="text" id="contact-title" placeholder="e.g. Program Manager, Deputy PM" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Organization / Company <span class="req">*</span></label>
+            <input type="text" id="contact-org" placeholder="Prime contractor name" required />
+          </div>
+          <div class="field">
+            <label>Work Email <span class="req">*</span></label>
+            <input type="email" id="contact-email" placeholder="you@company.com" required />
+          </div>
+        </div>
+        <div class="field">
+          <label>How quickly do you need a response from Responsa?</label>
+          <div class="radio-group" id="response-need">
+            <label class="radio-item"><input type="radio" name="response-need" value="Within 24 hours" /> Within 24 hours</label>
+            <label class="radio-item"><input type="radio" name="response-need" value="Within 48 hours" /> Within 48 hours</label>
+            <label class="radio-item"><input type="radio" name="response-need" value="Within a week" /> Within a week</label>
+            <label class="radio-item"><input type="radio" name="response-need" value="No rush" /> No rush</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Anything else we should know?</label>
+          <textarea id="additional-notes" rows="2" placeholder="Sensitivities, preferred communication channel, prior attempts to fill this role, etc."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-area">
+      <button type="submit" class="btn-submit">Submit Requirement →</button>
+      <p class="privacy-note">Your submission is reviewed only by the Responsa team. We will not share your requirement details with contractors without your explicit approval at the matching stage.</p>
+    </div>
+
+  </form>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <h3>How Responsa Works</h3>
+      <div class="process-step">
+        <div class="ps-num">1</div>
+        <div class="ps-text"><strong>You submit</strong> — paste your requirement, answer a few focused questions</div>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">2</div>
+        <div class="ps-text"><strong>We clarify</strong> — Responsa refines the requirement and identifies the real need</div>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">3</div>
+        <div class="ps-text"><strong>We filter</strong> — only cleared, location-eligible, rate-matched talent is considered</div>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">4</div>
+        <div class="ps-text"><strong>Contractors respond</strong> — shortlisted talent submits 3-bullet fit statements against your specific requirement</div>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">5</div>
+        <div class="ps-text"><strong>You receive a shortlist</strong> — structured profiles with fit rationale, ready to take back to your contracting process</div>
+      </div>
+      <hr class="divider"/>
+      <p>Questions? Reach us at<br/><strong style="color:#c8d8e8">hello@responsausa.com</strong></p>
+    </div>
+  </aside>
+</div>
+
+<!-- Confirmation Modal -->
+<div id="confirmation">
+  <div class="confirm-box">
+    <div class="confirm-icon">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h2>Requirement Received</h2>
+    <p>Thank you. A member of the Responsa team will review your submission and follow up at <strong id="confirm-email"></strong>.</p>
+    <p>Your reference number:</p>
+    <div class="confirm-ref" id="confirm-ref"></div>
+    <p style="font-size:0.82rem; margin-bottom:24px;">We do not share your requirement with any contractor without your explicit approval. Expect our initial response within the timeframe you selected.</p>
+    <button class="btn-close" onclick="closeConfirmation()">Done</button>
+  </div>
+</div>
+
+<script>
+  // ── Radio / Checkbox interactivity ──
+  document.querySelectorAll('.radio-group').forEach(group => {
+    group.querySelectorAll('.radio-item').forEach(item => {
+      item.addEventListener('change', () => {
+        group.querySelectorAll('.radio-item').forEach(i => i.classList.remove('selected'));
+        if (item.querySelector('input').checked) item.classList.add('selected');
+      });
+      item.addEventListener('click', () => {
+        setTimeout(() => {
+          group.querySelectorAll('.radio-item').forEach(i => {
+            i.classList.toggle('selected', i.querySelector('input').checked);
+          });
+        }, 0);
+      });
+    });
+  });
+
+  document.querySelectorAll('.check-item input').forEach(cb => {
+    cb.addEventListener('change', () => {
+      cb.closest('.check-item').classList.toggle('selected', cb.checked);
+    });
+  });
+
+  // ── Urgency selector ──
+  document.querySelectorAll('.urgency-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.urgency-opt').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      document.getElementById('urgency-value').value = opt.dataset.value;
+    });
+  });
+
+  // ── Show/hide on-site location ──
+  document.querySelectorAll('input[name="work-location"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const loc = document.getElementById('location-field');
+      loc.style.display = (r.value === 'On-site' || r.value === 'Hybrid') ? 'flex' : 'none';
+    });
+  });
+
+  // ── Char count ──
+  const reqText = document.getElementById('requirement-text');
+  reqText.addEventListener('input', () => {
+    document.getElementById('req-count').textContent = reqText.value.length;
+  });
+
+  // ── Active section tabs ──
+  const sections = document.querySelectorAll('.form-section');
+  const tabs = document.querySelectorAll('.step-tab');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = entry.target.dataset.section - 1;
+        tabs.forEach((t, i) => {
+          t.classList.toggle('active', i === idx);
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => observer.observe(s));
+
+  // ── Validation ──
+  function validateForm() {
+    let valid = true;
+    document.querySelectorAll('.field-error').forEach(e => e.remove());
+    document.querySelectorAll('.invalid').forEach(e => e.classList.remove('invalid'));
+
+    const required = ['contract-type','agency','requirement-text','done-look','functional-area','clearance','contact-name','contact-org','contact-email'];
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.classList.add('invalid');
+        const err = document.createElement('span');
+        err.className = 'field-error';
+        err.textContent = 'This field is required.';
+        el.parentNode.insertBefore(err, el.nextSibling);
+        valid = false;
+      }
+    });
+
+    const email = document.getElementById('contact-email');
+    if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+      email.classList.add('invalid');
+      const err = document.createElement('span');
+      err.className = 'field-error';
+      err.textContent = 'Please enter a valid email.';
+      email.parentNode.insertBefore(err, email.nextSibling);
+      valid = false;
+    }
+
+    if (!document.getElementById('urgency-value').value) {
+      const track = document.getElementById('urgency-track');
+      const err = document.createElement('span');
+      err.className = 'field-error';
+      err.textContent = 'Please select a start date urgency.';
+      track.parentNode.insertBefore(err, track.nextSibling);
+      valid = false;
+    }
+
+    return valid;
+  }
+
+  // ── Submit ──
+  document.getElementById('intake-form').addEventListener('submit', e => {
+    e.preventDefault();
+    if (!validateForm()) {
+      const firstErr = document.querySelector('.invalid, .field-error');
+      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const email = document.getElementById('contact-email').value;
+    const ref = 'RSP-' + Date.now().toString(36).toUpperCase().slice(-6);
+
+    document.getElementById('confirm-email').textContent = email;
+    document.getElementById('confirm-ref').textContent = ref;
+    document.getElementById('confirmation').classList.add('show');
+  });
+
+  function closeConfirmation() {
+    document.getElementById('confirmation').classList.remove('show');
+    document.getElementById('intake-form').reset();
+    document.querySelectorAll('.radio-item, .check-item').forEach(i => i.classList.remove('selected'));
+    document.querySelectorAll('.urgency-opt').forEach(o => o.classList.remove('selected'));
+    document.getElementById('urgency-value').value = '';
+    document.getElementById('req-count').textContent = '0';
+    document.getElementById('location-field').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
