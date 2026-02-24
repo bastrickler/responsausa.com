@@ -132,13 +132,14 @@
       letter-spacing: 0.07em;
       text-transform: uppercase;
       padding: 9px 22px;
-      background: var(--gold);
-      color: var(--navy-deep) !important;
+      background: var(--navy-mid);
+      color: var(--white) !important;
+      border: 1.5px solid rgba(255,255,255,0.2);
       border-radius: 2px;
       text-decoration: none;
       transition: background 0.15s !important;
     }
-    .nav-cta:hover { background: var(--gold-lt) !important; color: var(--navy-deep) !important; }
+    .nav-cta:hover { background: var(--navy) !important; color: var(--white) !important; }
 
     /* ── HERO ── */
     .hero {
@@ -628,6 +629,23 @@
       position: relative;
     }
 
+    .btn-prime {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 15px 34px;
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
+      display: inline-block;
+      border: 1.5px solid var(--navy);
+    }
+    .btn-prime:hover { background: var(--navy-mid); transform: translateY(-1px); }
+
     .btn-outline {
       font-family: 'DM Sans', sans-serif;
       font-size: 0.85rem;
@@ -741,7 +759,7 @@
       <p class="hero-sub">Responsa connects federal prime contractors with a vetted community of independent professionals — structured around outcomes, not headcount. Starting with DoD, built for the federal enterprise.</p>
       <div class="hero-actions">
         <a href="#join" class="btn-primary">Join the Community</a>
-        <a href="#for-you" class="btn-secondary">I'm a prime contractor</a>
+        <a href="#for-you" class="btn-prime">I'm a prime contractor</a>
       </div>
     </div>
     <div class="hero-card">
@@ -814,7 +832,7 @@
           <li>Access AI tool training to work faster and smarter than larger teams</li>
           <li>Join a community of peers who take their craft seriously</li>
         </ul>
-        <a href="#join" class="btn-primary">Apply to Join</a>
+        <a href="#join" class="btn-primary">Apply to Join →</a>
       </div>
       <div class="aud-visual">
         <div class="aud-visual-label">Your path in Responsa</div>
@@ -839,7 +857,7 @@
           <li>Daily rates visible upfront — no negotiation friction, easy cost buildup</li>
           <li>Meets SDVOSB subcontracting goals automatically</li>
         </ul>
-        <a href="intake.html" class="btn-primary">Submit a Requirement</a>
+        <a href="intake.html" class="btn-prime">Submit a Requirement →</a>
       </div>
       <div class="aud-visual">
         <div class="aud-visual-label">How it works for primes</div>
@@ -863,7 +881,7 @@
           <li>Prototype model targeting 5% of subcontract value to firms under 5 people</li>
           <li>SDVOSB-certified, SAM-registered, fully compliant with FAR subcontracting requirements</li>
         </ul>
-        <a href="/cdn-cgi/l/email-protection#dfb7bab3b3b09fadbaacafb0b1acbeaaacbef1bcb0b2" class="btn-primary">Get in Touch</a>
+        <a href="mailto:hello@responsausa.com" class="btn-prime">Get in Touch →</a>
       </div>
       <div class="aud-visual">
         <div class="aud-visual-label">The long game</div>
@@ -910,7 +928,7 @@
       <div class="section-eyebrow" style="color: var(--gold);">Join the Community</div>
       <h2 class="section-title" style="color: var(--white);">Your expertise<br/>deserves <em>better.</em></h2>
       <p class="section-body" style="color: #8fa5c0; margin-bottom: 32px;">Responsa is building a curated community of federal professionals who are serious about their craft and serious about their independence. DoD is our beachhead — but if you bring deep expertise in any federal domain, we want to hear from you.</p>
-      <a href="/cdn-cgi/l/email-protection#157f7a7c7b55677066657a7b66746066743b767a782a6660777f70766128567a7b61677476617a6735546565797c7674617c7a7b" class="btn-primary">Apply to Join Responsa</a>
+      <a href="mailto:join@responsausa.com?subject=Contractor Application" class="btn-primary">Apply to Join Responsa →</a>
     </div>
     <div style="display: flex; flex-direction: column; gap: 16px;">
       <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 3px; padding: 24px;">
@@ -942,8 +960,8 @@
   <h2>Ready to submit a <em>requirement?</em></h2>
   <p>Tell us what you need. We'll handle the matching.</p>
   <div class="cta-buttons">
-    <a href="intake.html" class="btn-primary">Submit a Requirement</a>
-    <a href="/cdn-cgi/l/email-protection#afc7cac3c3c0efddcadcdfc0c1dccedadcce81ccc0c2" class="btn-outline">Contact Responsa</a>
+    <a href="intake.html" class="btn-prime">Submit a Requirement →</a>
+    <a href="mailto:hello@responsausa.com" class="btn-outline">Contact Responsa</a>
   </div>
 </section>
 
