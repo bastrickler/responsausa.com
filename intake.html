@@ -31,6 +31,57 @@
       overflow-x: hidden;
     }
 
+    /* ── AUDIENCE BANNER ── */
+    .audience-banner {
+      position: fixed;
+      top: 64px;
+      left: 0; right: 0;
+      z-index: 49;
+      display: flex;
+      height: 40px;
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(200,149,42,0.25);
+    }
+
+    .banner-lane {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-decoration: none;
+      transition: background 0.15s;
+      padding: 0 24px;
+    }
+
+    .banner-contractor { background: rgba(200,149,42,0.12); }
+    .banner-contractor:hover { background: rgba(200,149,42,0.22); }
+
+    .banner-prime { background: rgba(255,255,255,0.03); }
+    .banner-prime:hover { background: rgba(255,255,255,0.08); }
+
+    .banner-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #8fa5c0;
+    }
+
+    .banner-contractor .banner-label { color: var(--gold); }
+
+    .banner-action {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .banner-divider {
+      width: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 8px 0;
+    }
+
     /* ── NAV ── */
     nav {
       position: fixed;
@@ -96,7 +147,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 120px 48px 80px;
+      padding: 160px 48px 80px;
       position: relative;
       overflow: hidden;
     }
@@ -635,7 +686,9 @@
     @media (max-width: 900px) {
       nav { padding: 0 24px; }
       .nav-links { display: none; }
-      .hero { padding: 100px 24px 64px; }
+      .banner-label { display: none; }
+      .banner-action { font-size: 0.72rem; }
+      .hero { padding: 140px 24px 64px; }
       .hero-grid { grid-template-columns: 1fr; gap: 40px; }
       .hero-card { display: none; }
       section { padding: 64px 24px; }
@@ -665,6 +718,19 @@
     <li><a href="intake.html" class="nav-cta">Submit a Requirement</a></li>
   </ul>
 </nav>
+
+<!-- AUDIENCE BANNER -->
+<div class="audience-banner">
+  <a href="#join" class="banner-lane banner-contractor">
+    <span class="banner-label">Independent Contractor</span>
+    <span class="banner-action">Join the Responsa Community →</span>
+  </a>
+  <div class="banner-divider"></div>
+  <a href="intake.html" class="banner-lane banner-prime">
+    <span class="banner-label">Prime Contractor / PM</span>
+    <span class="banner-action">Submit a Requirement →</span>
+  </a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
