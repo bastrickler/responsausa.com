@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
   <title>Responsa — Apply to Join the Community</title>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <script>
-    function validateAndSubmit(e) {
+    async function validateAndSubmit(e) {
       e.preventDefault();
       let valid = true;
       document.querySelectorAll('.field-error').forEach(el => el.remove());
@@ -51,12 +52,42 @@
         return;
       }
 
-      const name = document.getElementById('full-name').value.split(' ')[0];
-      document.getElementById('confirm-name').textContent = name;
-      document.getElementById('confirm-email').textContent = document.getElementById('email').value;
-      const ref = 'RSP-' + Date.now().toString(36).toUpperCase().slice(-6);
-      document.getElementById('confirm-ref').textContent = ref;
-      document.getElementById('confirmation').classList.add('show');
+      // Submit to Formspree
+      const btn = document.querySelector('.btn-submit');
+      btn.textContent = 'Submitting…';
+      btn.disabled = true;
+
+      const form = document.getElementById('application-form');
+      const data = new FormData(form);
+
+      // Capture fields not naturally in FormData (labeled inputs by id)
+      ['full-name','email','location','linkedin','functional-area','experience-level',
+       'certifications','summary','clearance-level','clearance-status','llc-status',
+       'sam-status','daily-rate','availability','why-join','resume-link','additional'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) data.set(id, el.value);
+      });
+
+      try {
+        const res = await fetch('https://formspree.io/f/xzdayeer', {
+          method: 'POST', body: data, headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          const name = document.getElementById('full-name').value.split(' ')[0];
+          document.getElementById('confirm-name').textContent = name;
+          document.getElementById('confirm-email').textContent = document.getElementById('email').value;
+          const ref = 'RSP-' + Date.now().toString(36).toUpperCase().slice(-6);
+          document.getElementById('confirm-ref').textContent = ref;
+          document.getElementById('confirmation').classList.add('show');
+        } else {
+          btn.textContent = 'Submission failed — please try again';
+          btn.disabled = false;
+        }
+      } catch (err) {
+        btn.textContent = 'Network error — please try again';
+        btn.disabled = false;
+      }
     }
 
     function closeConfirmation() {
