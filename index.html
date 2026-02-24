@@ -269,7 +269,7 @@
   </a>
   <div class="banner-divider"></div>
   <a href="intake.html" class="banner-lane banner-prime">
-    <span class="banner-label">Prime Contractor / PM</span>
+    <span class="banner-label">Prime Contractor / Program Manager</span>
     <span class="banner-action">Submit a Requirement →</span>
   </a>
 </div>
@@ -344,8 +344,7 @@
     <h2 class="section-title fade-up">Built for <em>both sides</em><br/>of the equation.</h2>
     <div class="audience-tabs fade-up">
       <button class="aud-tab active" onclick="switchTab('contractor')">Independent Contractors</button>
-      <button class="aud-tab" onclick="switchTab('prime')">Prime Contractors / PMs</button>
-      <button class="aud-tab" onclick="switchTab('dod')">DoD Program Offices</button>
+      <button class="aud-tab" onclick="switchTab('prime')">Prime Contractors / Program Managers</button>
     </div>
 
     <div class="aud-panel active" id="panel-contractor">
@@ -396,27 +395,7 @@
       </div>
     </div>
 
-    <div class="aud-panel" id="panel-dod">
-      <div class="aud-content">
-        <h3>Better outcomes. Broader base.</h3>
-        <p>Responsa launches in DoD — where the need is most acute and the proof points most compelling — with a clear path to the broader federal enterprise. We're building the evidence base for a formal micro-business set-aside category.</p>
-        <ul class="aud-benefits">
-          <li>Project-based engagements with defined deliverables, not open-ended support</li>
-          <li>Expands the defense industrial base to include highly qualified micro-businesses</li>
-          <li>Prototype model targeting 5% of subcontract value to firms under 5 people</li>
-          <li>SDVOSB-certified, SAM-registered, fully compliant with FAR subcontracting requirements</li>
-        </ul>
-        <a href="/cdn-cgi/l/email-protection#caa2afa6a6a58ab8afb9baa5a4b9abbfb9abe4a9a5a7" class="btn-prime">Get in Touch →</a>
-      </div>
-      <div class="aud-visual">
-        <div class="aud-visual-label">The long game</div>
-        <div class="process-steps">
-          <div class="ps"><div class="ps-dot">1</div><div class="ps-body"><strong>Demonstrate outcomes</strong><span>Build a track record of micro-business performance on DoD subwork</span></div></div>
-          <div class="ps"><div class="ps-dot">2</div><div class="ps-body"><strong>Aggregate the data</strong><span>Document cost, schedule, and quality metrics vs. staff aug alternatives</span></div></div>
-          <div class="ps"><div class="ps-dot">3</div><div class="ps-body"><strong>Influence policy</strong><span>Build the case for a formal micro-business set-aside category in DoD</span></div></div>
-        </div>
-      </div>
-    </div>
+
   </div>
 </section>
 
@@ -495,7 +474,7 @@
   // Tab switching
   function switchTab(panel) {
     document.querySelectorAll('.aud-tab').forEach((t, i) => {
-      t.classList.toggle('active', ['contractor','prime','dod'][i] === panel);
+      t.classList.toggle('active', ['contractor','prime'][i] === panel);
     });
     document.querySelectorAll('.aud-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + panel).classList.add('active');
