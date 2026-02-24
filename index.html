@@ -247,6 +247,15 @@
       .audience-tabs { flex-direction: column; }
     }
   </style>
+  <script>
+    function switchTab(panel) {
+      document.querySelectorAll('.aud-tab').forEach((t, i) => {
+        t.classList.toggle('active', ['contractor','prime'][i] === panel);
+      });
+      document.querySelectorAll('.aud-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('panel-' + panel).classList.add('active');
+    }
+  </script>
 </head>
 <body>
 
