@@ -971,7 +971,7 @@
   }
 
   // ── Submit ──
-  document.getElementById('intake-form').addEventListener('submit', e => {
+  document.getElementById('intake-form').addEventListener('submit', async e => {
     e.preventDefault();
     if (!validateForm()) {
       const firstErr = document.querySelector('.invalid, .field-error');
@@ -979,12 +979,41 @@
       return;
     }
 
-    const email = document.getElementById('contact-email').value;
-    const ref = 'RSP-' + Date.now().toString(36).toUpperCase().slice(-6);
+    const btn = document.querySelector('.btn-submit');
+    btn.textContent = 'Submitting…';
+    btn.disabled = true;
 
-    document.getElementById('confirm-email').textContent = email;
-    document.getElementById('confirm-ref').textContent = ref;
-    document.getElementById('confirmation').classList.add('show');
+    const form = document.getElementById('intake-form');
+    const data = new FormData(form);
+
+    // Capture id-based fields
+    ['requirement-text','optimal-fit','end-state','functional-area','clearance',
+     'exp-level','skill-notes','pop','work-location','onsite-location','daily-rate',
+     'urgency-value','contract-type','contract-number','agency','contact-name',
+     'contact-title','contact-org','contact-email','additional-notes'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) data.set(id, el.value);
+    });
+
+    try {
+      const res = await fetch('https://formspree.io/f/xqedwppa', {
+        method: 'POST', body: data, headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        const email = document.getElementById('contact-email').value;
+        const ref = 'RSP-' + Date.now().toString(36).toUpperCase().slice(-6);
+        document.getElementById('confirm-email').textContent = email;
+        document.getElementById('confirm-ref').textContent = ref;
+        document.getElementById('confirmation').classList.add('show');
+      } else {
+        btn.textContent = 'Submission failed — please try again';
+        btn.disabled = false;
+      }
+    } catch (err) {
+      btn.textContent = 'Network error — please try again';
+      btn.disabled = false;
+    }
   });
 
   function closeConfirmation() {
